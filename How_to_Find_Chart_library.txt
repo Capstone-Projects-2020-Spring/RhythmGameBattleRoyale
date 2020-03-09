@@ -1,8 +1,8 @@
-#H1 How to Find the Library (.dll file) for Chart Parsing
+How to Find the Library (.dll file) for Chart Parsing
 
-##H2 Step 1 (The file path on Git): ChartParser\ChartParser\bin\Debug\netstandard1.4/ChartPaser.dll 
+Step 1 (The file path on Git): ChartParser\ChartParser\bin\Debug\netstandard1.4/ChartPaser.dll 
 
-##H2 Step 2 (adding to visual studio): In your visual studio project you what to go to your reference section, which is
+Step 2 (adding to visual studio): In your visual studio project you what to go to your reference section, which is
 				  in the right most window called Solution Explorer
 				  
 	- Right-click on the references drop-down menu in that window
@@ -10,7 +10,7 @@
 	- Select the browse button and find your file and select it
 	- Then click the "Ok" button
 
-##H2 Step 3 (Using the Library): In your code window put "using ChartParser;"
+Step 3 (Using the Library): In your code window put "using ChartParser;"
 
 	- Then you create a List of objects to hold the return of the paser function 
 	  (List<object> name = new List<object);)
@@ -31,6 +31,6 @@
 	             red and green togather. 
 	- Also all enums are set equal to 1
 
-##H2 Side Notes:
+Side Notes:
 	   I'm pretty sure all variables listed above have there own get and set methods 
 	   Make sure you have the right file path because I did not do any checks to see if its wrong (work in progress)
