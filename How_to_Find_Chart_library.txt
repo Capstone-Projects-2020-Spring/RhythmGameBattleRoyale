@@ -1,0 +1,36 @@
+How to Find the Library (.dll file) for Chart Parsing
+
+Step 1 (The file path on Git): ChartParser\ChartParser\bin\Debug\netstandard1.4/ChartPaser.dll 
+
+Step 2 (adding to visual studio): In your visual studio project you what to go to your reference section, which is
+				  in the right most window called Solution Explorer
+				  
+	- Right-click on the references drop-down menu in that window
+	- Then click on "Add Reference" and a window will pop up called "Reference Manager"
+	- Select the browse button and find your file and select it
+	- Then click the "Ok" button
+
+Step 3 (Using the Library): In your code window put "using ChartParser;"
+
+	- Then you create a List of objects to hold the return of the paser function 
+	  (List<object> name = new List<object);)
+	- Create a string variable that will hold your filepath to the chart
+	- Next you will write the following code to call the chart parser and to get your return values
+	(name = Parser.ChartReader(FilePath);)
+	- Now your list contains 4 elements:
+	- Element 0: A object called "SongData" containing variables about song name, offset, resolution,etc.
+	- Element 1: A List of objects called "SyncTrackData" that contain "SyncTrack" objects
+		-"SyncTrack" objects contain "int timeStamp", "int duration", "string identifier"
+	- Element 2: A List of objects called "EventsData" that contain Events objects
+	-"Events" objects contain "int timeStamp", "string songPart", "string identifier"
+	- Element 3:A object called "NoteHolder" that contains lists of diffculties that contain Note objects
+		-The lists are called Easy, Medium, Hard, and Expert
+		- Note objects contain "int timeStamp", "int duration", "string type", "List<ButtonColor> chord"
+		- List<ButtonColor> chord contains enums values of the notes to played in that chord
+		  EX:"Chord = [ButtonColor.Red,Color.Green]" this means that the notes will be 
+	             red and green togather. 
+	- Also all enums are set equal to 1
+
+Side Notes:
+	   I'm pretty sure all variables listed above have there own get and set methods 
+	   Make sure you have the right file path because I did not do any checks to see if its wrong (work in progress)
