@@ -33,26 +33,33 @@ public class SettingsManager : MonoBehaviour
     public void OnFullscreenToggle()
     {
         gameSettings.fullscreen = Screen.fullScreen = fullscreenToggle.isOn;
+        Debug.Log("Fulscreen toggled!");
     }
 
     public void OnResolutionChange()
     {
         Screen.SetResolution(resolutions[resolutionDropdown.value].width, resolutions[resolutionDropdown.value].height, Screen.fullScreen);
+        Debug.Log("Resolution modified!");
     }
 
     public void onVolumeChange()
     {
         gameSettings.masterVolume = masterVolumeSlider.value;
+        Debug.Log("Volume set to: " + gameSettings.masterVolume);
     }
 
     public void SaveSettings()
     {
-        string jsonData = jsonUtility.ToJson(gameSettings, true);
+        string jsonData = JsonUtility.ToJson(gameSettings, true);
         File.WriteAllText(Application.persistentDataPath + "/gamesettings.json", jsonData);
+        Debug.Log("Settings saved to gamesettings.json");
     }
 
     public void LoadSettings()
     {
-
+        gameSettings = JsonUtility.FromJson<GameSettings>(Application.persistentDataPath + "/gamesettings.json");
+        masterVolumeSlider.value = gameSettings.masterVolume;
+        resolutionDropdown.value = gameSettings.resolutionIndex;
+        fullscreenToggle.isOn = gameSettings.fullscreen;
     }
 }
