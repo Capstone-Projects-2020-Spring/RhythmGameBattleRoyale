@@ -1,0 +1,8 @@
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\bin\Debug\netstandard1.4\ChartParser.deps.json
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\bin\Debug\netstandard1.4\ChartParser.dll
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\bin\Debug\netstandard1.4\ChartParser.pdb
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\obj\Debug\netstandard1.4\ChartParser.csproj.CoreCompileInputs.cache
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\obj\Debug\netstandard1.4\ChartParser.AssemblyInfo.cs
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\obj\Debug\netstandard1.4\ChartParser.dll
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\obj\Debug\netstandard1.4\ChartParser.pdb
+C:\Users\Sean Byrne\source\repos\ChartParser\ChartParser\obj\Debug\netstandard1.4\ChartParser.csprojAssemblyReference.cache
