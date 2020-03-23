@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     private MeshRenderer[] inputButtonMaterials;
     private bool[] buttonStates;
     private ButtonManager[] buttonScriptReferences;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             inputButtonMaterials[0].material = buttonMaterials[5];
             buttonStates[0] = true;
@@ -90,7 +90,7 @@ public class InputManager : MonoBehaviour
         }
 
 
-        if(Input.GetButtonDown("Fire6"))
+        if (Input.GetButtonDown("Fire6"))
         {
             if (checkStrum())
             {
@@ -103,9 +103,9 @@ public class InputManager : MonoBehaviour
 
     private bool checkStrum()
     {
-        for(int i = 0; i < buttonStates.Length; i++)
+        for (int i = 0; i < buttonStates.Length; i++)
         {
-            if(buttonStates[i] != notesOnButtons[i])
+            if (buttonStates[i] != notesOnButtons[i])
             {
                 return false;
             }
@@ -115,9 +115,9 @@ public class InputManager : MonoBehaviour
 
     private void executeStrum()
     {
-        for(int i = 0; i < notesOnButtons.Length; i++)
+        for (int i = 0; i < notesOnButtons.Length; i++)
         {
-            if(notesOnButtons[i])
+            if (notesOnButtons[i])
             {
                 buttonScriptReferences[i].destroyNote();
             }
