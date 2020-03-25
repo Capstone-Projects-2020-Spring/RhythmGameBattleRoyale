@@ -6,7 +6,8 @@ using ChartParser;
 public class Reader : MonoBehaviour
 {
     public GameObject[] inputButtonObjects;
-    private InstantiatorScript[] inputButtonScripts;
+
+    private InstantiatorScript[] noteSpawnerScripts;
     Song Holder;
     List<Note> track;
     float startTime;
@@ -18,7 +19,7 @@ public class Reader : MonoBehaviour
     void Start()
     {
         startTime = 0.0f;
-        inputButtonScripts = new InstantiatorScript[inputButtonObjects.Length];
+        noteSpawnerScripts = new InstantiatorScript[inputButtonObjects.Length];
 
         
 
@@ -30,7 +31,7 @@ public class Reader : MonoBehaviour
 
         for (int i = 0; i < inputButtonObjects.Length; i++)
         {
-            inputButtonScripts[i] = inputButtonObjects[i].GetComponent<InstantiatorScript>();
+            noteSpawnerScripts[i] = inputButtonObjects[i].GetComponent<InstantiatorScript>();
         }
     }
 
@@ -60,23 +61,23 @@ public class Reader : MonoBehaviour
             switch (color)
             {
                 case ButtonColor.Green:
-                    inputButtonScripts[0].SpawnNote();
+                    noteSpawnerScripts[0].SpawnNote();
                     print("green");
                     break;
                 case ButtonColor.Red:
-                    inputButtonScripts[1].SpawnNote();
+                    noteSpawnerScripts[1].SpawnNote();
                     print("red");
                     break;
                 case ButtonColor.Yellow:
-                    inputButtonScripts[2].SpawnNote();
+                    noteSpawnerScripts[2].SpawnNote();
                     print("yellow");
                     break;
                 case ButtonColor.Blue:
-                    inputButtonScripts[3].SpawnNote();
+                    noteSpawnerScripts[3].SpawnNote();
                     print("blue");
                     break;
                 case ButtonColor.Orange:
-                    inputButtonScripts[4].SpawnNote();
+                    noteSpawnerScripts[4].SpawnNote();
                     print("orange");
                     break;
                 default:
