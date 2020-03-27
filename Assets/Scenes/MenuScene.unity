@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 856745165}
   - component: {fileID: 856745164}
   - component: {fileID: 856745163}
+  - component: {fileID: 856745166}
   m_Layer: 5
   m_Name: JoinButton
   m_TagString: Untagged
@@ -344,7 +345,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 856745164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 856745166}
+        m_MethodName: NextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &856745164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +393,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856745161}
   m_CullTransparentMesh: 0
+--- !u!114 &856745166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856745161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2442cf0766981449f80a2d70a2da4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToChange: LobbyScene
 --- !u!1 &861727272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,6 +1199,7 @@ GameObject:
   - component: {fileID: 1789985136}
   - component: {fileID: 1789985135}
   - component: {fileID: 1789985134}
+  - component: {fileID: 1789985133}
   m_Layer: 5
   m_Name: JoinButtonImg
   m_TagString: Untagged
@@ -1200,6 +1226,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0.2999878, y: 5.899994}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1789985133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789985131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2442cf0766981449f80a2d70a2da4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToChange: LobbyScene
 --- !u!114 &1789985134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1242,7 +1281,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1789985135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1789985133}
+        m_MethodName: NextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1789985135
 MonoBehaviour:
   m_ObjectHideFlags: 0
