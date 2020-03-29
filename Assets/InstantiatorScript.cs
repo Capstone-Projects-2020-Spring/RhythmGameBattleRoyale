@@ -33,9 +33,15 @@ public class InstantiatorScript : MonoBehaviour
         cumulativeTimer += Time.deltaTime;
         if(timer >= timestep || cumulativeTimer > maxTime)
         {
-            GameObject note = Instantiate(noteObject, this.gameObject.transform.position, this.gameObject.transform.rotation);
+            /*GameObject note = Instantiate(noteObject, this.gameObject.transform.position, this.gameObject.transform.rotation);
             note.GetComponent<MeshRenderer>().material = noteMaterial;
-            timer -= timestep;
+            timer -= timestep;*/
         }
+    }
+
+    public void SpawnNote()
+    {
+        GameObject note = Instantiate(noteObject, this.gameObject.transform.position, noteObject.transform.rotation);
+        note.GetComponent<MeshRenderer>().material = noteMaterial;
     }
 }

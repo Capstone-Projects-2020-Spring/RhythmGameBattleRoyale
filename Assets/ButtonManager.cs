@@ -6,9 +6,10 @@ public class ButtonManager : MonoBehaviour
 {
     public InputManager inputReference;
     public int inputNumber;
-
     //private SphereCollider colliderReference;
     private GameObject noteReference;
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,7 @@ public class ButtonManager : MonoBehaviour
             noteReference = other.gameObject;
             inputReference.notesOnButtons[inputNumber] = true;
         }
+        //inputReference.GetComponent<Reader>().startSong();
     }
 
     private void OnTriggerExit(Collider other)

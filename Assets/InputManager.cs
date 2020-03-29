@@ -121,6 +121,8 @@ public class InputManager : MonoBehaviour
             {
                 buttonScriptReferences[i].destroyNote();
             }
+
+            notesOnButtons[i] = false;
         }
     }
 }
