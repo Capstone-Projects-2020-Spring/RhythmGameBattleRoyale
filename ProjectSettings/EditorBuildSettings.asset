@@ -84,4 +84,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SpectatorScene.unity
     guid: e2b7b06c4fb02f241b35aac5a194c646
+
   m_configObjects: {}

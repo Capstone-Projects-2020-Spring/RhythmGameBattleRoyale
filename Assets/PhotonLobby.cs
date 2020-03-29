@@ -9,17 +9,29 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public static PhotonLobby lobby;
     public GameObject connectButton;
     public GameObject cancelButton;
+    public string lobbyPlayerName;
 
     private void Awake()
     {
         lobby = this;
     }
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
-        PhotonNetwork.ConnectToRegion("us");
+        PhotonNetwork.NickName = "RGBR#" + Random.Range(1000, 9999);
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
+    private void Update()
+    {
+        if(PhotonNetwork.CurrentRoom != null)
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+            {
+                PhotonNetwork.LoadLevel(6);
+            }
+        }
     }
 
     public override void OnConnectedToMaster()
@@ -41,7 +53,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         //Debug.Log("Joining a random lobby failed. No open lobbies available");
-        Debug.LogError("Joining a random lobby failed. No open lobbies available");
+        Debug.LogError("No open lobbies available");
         CreateRoom();
     }
 
@@ -50,7 +62,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         //Debug.Log("Trying to create a lobby");
         Debug.LogError("Trying to create a lobby");
         int randomRoomName = Random.Range(0, 1000);
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 8 };
+        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 2 };
         PhotonNetwork.CreateRoom("Lobby " + randomRoomName, roomOptions);
         //Debug.Log("Lobby created");
         Debug.LogError("Lobby created");
@@ -60,6 +72,10 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     {
         //Debug.Log("Player is now in a lobby");
         Debug.LogError("Player is now in a lobby");
+        //Debug.Log("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        Debug.LogError("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        //Debug.Log("Player name: " + PhotonNetwork.NickName);
+        Debug.LogError("Player name: " + PhotonNetwork.NickName);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
