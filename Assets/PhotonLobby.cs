@@ -19,8 +19,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
-        //PhotonNetwork.ConnectToRegion("us");
-        lobbyPlayerName = "RGBR#" + Random.Range(1000, 9999);
+        PhotonNetwork.NickName = "RGBR#" + Random.Range(1000, 9999);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -54,7 +53,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         //Debug.Log("Joining a random lobby failed. No open lobbies available");
-        Debug.LogError("Joining a random lobby failed. No open lobbies available");
+        Debug.LogError("No open lobbies available");
         CreateRoom();
     }
 
@@ -75,8 +74,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         Debug.LogError("Player is now in a lobby");
         //Debug.Log("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
         Debug.LogError("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
-        //Debug.Log(lobbyPlayerName);
-        Debug.LogError("Player name: " + lobbyPlayerName);
+        //Debug.Log("Player name: " + PhotonNetwork.NickName);
+        Debug.LogError("Player name: " + PhotonNetwork.NickName);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
