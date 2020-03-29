@@ -9,20 +9,30 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 950693f5a9214934db25af94c08a4ed8
   - enabled: 1
-<<<<<<< HEAD
-    path: Assets/Scenes/SettingsScene.unity
-    guid: dcec0ace3ee85d4479ea7fc119f93fdc
-=======
+    path: Assets/Scenes/EndMatchScene.unity
+    guid: a9980ee34f675d54cadd1162e16934d1
+  - enabled: 1
     path: Assets/Scenes/LobbyJoinScene.unity
     guid: 619c2f1494f2fdc439b5da06031eef3b
   - enabled: 1
-    path: Assets/Scenes/LobbyCreationScene.unity
+    path: Assets/Scenes/LobbyScene.unity
+    guid: a4037e715958b9c4993792af6da4e87b
+  - enabled: 1
+    path: Assets/Scenes/MultiPlayerScene.unity
+    guid: c4c3235ce465d6b4da6d3bdc36936cb6
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene.unity
     guid: b8125871bd1b1ba4f8aa1d3ea4a424f0
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/SettingsScene.unity
     guid: dcec0ace3ee85d4479ea7fc119f93fdc
   - enabled: 1
     path: Assets/Scenes/SinglePlayerScene.unity
     guid: 6cc0f2a00ceea36438c09d5754335215
->>>>>>> master
+  - enabled: 1
+    path: Assets/Scenes/WaitScene.unity
+    guid: 864bd6275f434bf4696ebdb9e8be07ce
   m_configObjects: {}
