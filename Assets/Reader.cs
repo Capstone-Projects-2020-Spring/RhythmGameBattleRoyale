@@ -6,13 +6,19 @@ using ChartParser;
 public class Reader : MonoBehaviour
 {
     public GameObject[] inputButtonObjects;
+    public GameObject noteObject;
+    public AudioSource audioData;
+    public float songTime;
 
     private InstantiatorScript[] noteSpawnerScripts;
     Song Holder;
     List<Note> track;
     float startTime;
-    public int b = 120;
-    public int res = 192;
+    float oldTime = 0f;
+    public float b = 120.0f;
+    public float res = 192.0f;
+    bool songStarted = false;
+    
 
 
     // Start is called before the first frame update
@@ -39,18 +45,28 @@ public class Reader : MonoBehaviour
     void Update()
     {
         
-        
-        
     }
     private void FixedUpdate()
     {
         startTime += Time.deltaTime;
 
-        if ((int)startTime == (((track[0].getTimeStamp() / res) * (60000 / b)) / 1000))
+        if (startTime >= (((track[0].getTimeStamp() / res) * (60000.0f / b)) / 1000.0f))
         {
             check(track[0].getChord());
-
+            print(startTime-oldTime);
+            oldTime = startTime;
         }
+        float playSongTime = songTime;// + noteObject.GetComponent<NoteScript>().speed*-.003f + 6.45f;
+        if (!songStarted && startTime >= playSongTime) {
+            startSong();
+        }
+    }
+
+    public void startSong(){
+        if (!songStarted) {
+            audioData.Play(0);
+        }
+        songStarted = true;
     }
 
 
