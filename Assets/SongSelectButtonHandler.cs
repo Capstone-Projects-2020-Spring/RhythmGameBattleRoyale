@@ -21,4 +21,15 @@ public class SongSelectButtonHandler : MonoBehaviour
     {
         SceneManager.LoadScene("SinglePlayerScene");
     }
+
+    public void namePasser(string name)
+    {
+
+        PlayerPrefs.SetString("name", name);
+    }
+    public void audioNumber(int clip)
+    {
+
+        PlayerPrefs.SetInt("clip", clip);
+    }
 }

@@ -12,4 +12,14 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(sceneToChange);
     }
+    public void namePasser(string name)
+    {
+
+        PlayerPrefs.SetString("name", name);
+    }
+    public void audioNumber(int clip)
+    {
+
+        PlayerPrefs.SetInt("clip", clip);
+    }
 }
