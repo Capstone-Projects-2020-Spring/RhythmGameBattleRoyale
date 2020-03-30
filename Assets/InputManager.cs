@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -99,6 +100,10 @@ public class InputManager : MonoBehaviour
                 score += 1000 + Random.Range(0,500);
                 scoreObj.GetComponent<ScoreScript>().changeText(score);
             }
+        }
+
+        if (Input.GetButtonDown("Start")) {
+            SceneManager.LoadScene("LobbyCreationScene");
         }
     }
 
