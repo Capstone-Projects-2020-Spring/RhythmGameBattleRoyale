@@ -887,7 +887,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1, z: 0, w: 5.1290665}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 6.508472e-18}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1469,7 +1469,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: df9f903a8d3b8c04181e1a7457a4c2dd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3f1c7ac3ad27bbc48980999e1d1eae15, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2168,10 +2168,14 @@ MonoBehaviour:
   - {fileID: 1072124593}
   noteObject: {fileID: 8505943039840542402, guid: ba7e62054da986043b5b5d67809d5057,
     type: 3}
+  musicObject: {fileID: 1341393783}
   audioData: {fileID: 1341393784}
   songTime: 2.25
   b: 120
   res: 192
+  clip:
+  - {fileID: 8300000, guid: df9f903a8d3b8c04181e1a7457a4c2dd, type: 3}
+  - {fileID: 8300000, guid: 3f1c7ac3ad27bbc48980999e1d1eae15, type: 3}
 --- !u!1 &1981962950
 GameObject:
   m_ObjectHideFlags: 0
