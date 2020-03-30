@@ -19,6 +19,9 @@ public class Reader : MonoBehaviour
     public float b;
     public float res;
     bool songStarted = false;
+    private int measure = 0;
+    
+
     public AudioClip[] clip;
 
     // Start is called before the first frame update
@@ -51,17 +54,27 @@ public class Reader : MonoBehaviour
     private void FixedUpdate()
     {
         startTime += Time.deltaTime;
-
-        if (startTime >= (((track[0].getTimeStamp() / res) * (60000.0f / b)) / 1000.0f))
+        
+        if (track.Count>0 && startTime >= calcTime(track[0].getTimeStamp()))
         {
             check(track[0].getChord());
-            print(startTime-oldTime);
             oldTime = startTime;
         }
+        if (startTime >= calcTime((res * measure)))
+        {
+            measure++;
+            noteSpawnerScripts[2].SpawnBar();
+        }
+
+
         float playSongTime = songTime;// + noteObject.GetComponent<NoteScript>().speed*-.003f + 6.45f;
         if (!songStarted && startTime >= playSongTime) {
             startSong();
         }
+    }
+
+    public float calcTime(float value) {
+        return (((value / res) * (60000.0f / b)) / 1000.0f);
     }
 
     public void startSong(){

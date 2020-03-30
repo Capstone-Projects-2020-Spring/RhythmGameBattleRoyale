@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     //public data members that need explicit assignment in-editor
     public GameObject[] inputButtonObjects;
     public Material[] buttonMaterials;
+    public GameObject scoreObj;
 
     //public data members that are assigned at runtime
     public bool[] notesOnButtons;
@@ -90,27 +91,36 @@ public class InputManager : MonoBehaviour
         }
 
 
-        if (Input.GetButtonDown("Fire6"))
+        if (Input.GetButtonDown("Fire6") || Input.GetButtonDown("Strum") || true)
         {
             if (checkStrum())
             {
                 executeStrum();
-                score++;
-                Debug.Log(score);
+                score += 1000 + Random.Range(0,500);
+                scoreObj.GetComponent<ScoreScript>().changeText(score);
             }
         }
     }
 
     private bool checkStrum()
     {
+        bool atLeastOne = false;
+        bool easy = chance(.04f);
         for (int i = 0; i < buttonStates.Length; i++)
         {
-            if (buttonStates[i] != notesOnButtons[i])
+            if ((buttonStates[i])!= notesOnButtons[i] && !easy)
             {
                 return false;
             }
+            if (notesOnButtons[i]){
+                atLeastOne = true;
+            }
         }
-        return true;
+        return atLeastOne;
+    }
+
+    private bool chance(float p) {
+        return Random.Range(0.0f,1.0f) <= p;
     }
 
     private void executeStrum()

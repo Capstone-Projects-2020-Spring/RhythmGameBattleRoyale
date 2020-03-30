@@ -5,6 +5,7 @@ using UnityEngine;
 public class InstantiatorScript : MonoBehaviour
 {
     public GameObject noteObject;
+    public GameObject barObject;
     public int bpm;
     public Material noteMaterial;
     public float maxTime;
@@ -43,5 +44,12 @@ public class InstantiatorScript : MonoBehaviour
     {
         GameObject note = Instantiate(noteObject, this.gameObject.transform.position, noteObject.transform.rotation);
         note.GetComponent<MeshRenderer>().material = noteMaterial;
+    }
+
+    public void SpawnBar() {
+        GameObject bar = Instantiate(barObject, this.gameObject.transform.position, barObject.transform.rotation);
+        var pos = bar.transform.position;
+        bar.transform.position = new Vector3(pos.x,pos.y,pos.z+.1f);
+
     }
 }

@@ -6,6 +6,7 @@ public class ButtonManager : MonoBehaviour
 {
     public InputManager inputReference;
     public int inputNumber;
+    public GameObject particleSystemReference;
     //private SphereCollider colliderReference;
     private GameObject noteReference;
     
@@ -27,6 +28,8 @@ public class ButtonManager : MonoBehaviour
     {
         if (noteReference != null)
         {
+            GameObject particleSystem = Instantiate(particleSystemReference, gameObject.transform.position, gameObject.transform.rotation);
+            particleSystem.GetComponent<ParticleSystem>().Play();
             Destroy(noteReference);
             noteReference = null;
             //make destruction particle effects activate here
