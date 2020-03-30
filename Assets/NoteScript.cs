@@ -11,9 +11,9 @@ public class NoteScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Color color = this.GetComponent<MeshRenderer>().material.color;
+        /*Color color = this.GetComponent<MeshRenderer>().material.color;
         color.a = 0;
-        this.GetComponent<MeshRenderer>().material.color = color;
+        this.GetComponent<MeshRenderer>().material.color = color;*/
         if (speed == null || speed == 0.0f)
         {
             speed = 1500.0f;
@@ -29,7 +29,7 @@ public class NoteScript : MonoBehaviour
     {
         //gameObject.transform.Rotate(rotation);
         //gameObject.transform.Translate(gameObject.transform.localRotation*Vector3.down);
-        if(gameObject.transform.position.y < -5.0f)
+        if(gameObject.transform.position.y < -10.0f)
         {
             Destroy(gameObject);
         }
@@ -37,9 +37,11 @@ public class NoteScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        /*
         Color color = this.GetComponent<MeshRenderer>().material.color;
         color.a += Time.deltaTime  * 1f;
-        color.a = color.a < 1f ? color.a : 1f;
+        color.a = color.a < 1.2f ? color.a : 1.2f;
         this.GetComponent<MeshRenderer>().material.color = color;
+        */
     }
 }
