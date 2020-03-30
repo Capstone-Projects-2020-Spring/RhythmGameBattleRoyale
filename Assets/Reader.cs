@@ -7,6 +7,7 @@ public class Reader : MonoBehaviour
 {
     public GameObject[] inputButtonObjects;
     public GameObject noteObject;
+    public GameObject musicObject;
     public AudioSource audioData;
     public float songTime;
 
@@ -15,11 +16,10 @@ public class Reader : MonoBehaviour
     List<Note> track;
     float startTime;
     float oldTime = 0f;
-    public float b = 120.0f;
-    public float res = 192.0f;
+    public float b;
+    public float res;
     bool songStarted = false;
-    
-
+    public AudioClip[] clip;
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +30,13 @@ public class Reader : MonoBehaviour
         
 
         string path = Application.dataPath;
-
-        Holder = Parser.ChartReader(path + "\\MEGALOVANIA.chart");
+        string name = PlayerPrefs.GetString("name");
+        //print("name" +name);
+        Holder = Parser.ChartReader(path +name);
         track = Holder.NoteTracksList.getExpert();
-        track.RemoveAt(0);
-
+        res = float.Parse(Holder.MetaDataInfo.getResolution());
+         b = (float)Holder.SyncTrackData[0].getDuration()/1000.0f;
+      
         for (int i = 0; i < inputButtonObjects.Length; i++)
         {
             noteSpawnerScripts[i] = inputButtonObjects[i].GetComponent<InstantiatorScript>();
@@ -64,6 +66,14 @@ public class Reader : MonoBehaviour
 
     public void startSong(){
         if (!songStarted) {
+            if (PlayerPrefs.GetInt("clip") == 0)
+            {
+                musicObject.GetComponent<AudioSource>().clip = clip[0];
+            }
+            else if(PlayerPrefs.GetInt("clip") == 1)
+            {
+
+            }
             audioData.Play(0);
         }
         songStarted = true;
