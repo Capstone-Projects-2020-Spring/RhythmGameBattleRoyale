@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 930975662}
   - component: {fileID: 930975661}
   - component: {fileID: 930975660}
+  - component: {fileID: 930975664}
   - component: {fileID: 930975663}
   m_Layer: 5
   m_Name: OtherSongButton
@@ -365,6 +366,17 @@ MonoBehaviour:
           m_StringArgument: /CrabRave.chart
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 930975664}
+        m_MethodName: FindDifficulty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 930975663}
         m_MethodName: audioNumber
         m_Mode: 3
@@ -424,7 +436,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2442cf0766981449f80a2d70a2da4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToChange: SinglePlayerScene
+  sceneToChange: SongDifficultyScene
+--- !u!114 &930975664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930975658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806b66d0b0c0ee847babb141f64b9b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &979017586
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +461,7 @@ GameObject:
   - component: {fileID: 979017589}
   - component: {fileID: 979017588}
   - component: {fileID: 979017591}
+  - component: {fileID: 979017592}
   - component: {fileID: 979017590}
   m_Layer: 5
   m_Name: OtherSongSelectText
@@ -593,9 +618,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 979017586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1878d0fdbb66a54dae3d0f8e8393ee8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d2442cf0766981449f80a2d70a2da4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToChange: SongDifficultyScene
 --- !u!114 &979017591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,17 +666,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 979017590}
-        m_MethodName: NextScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 979017590}
         m_MethodName: namePasser
         m_Mode: 5
         m_Arguments:
@@ -659,6 +674,28 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: /CrabRave.chart
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 979017590}
+        m_MethodName: NextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 979017592}
+        m_MethodName: FindDifficulty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 979017590}
@@ -672,6 +709,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &979017592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979017586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806b66d0b0c0ee847babb141f64b9b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1059196117
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,6 +1042,7 @@ GameObject:
   - component: {fileID: 1304167539}
   - component: {fileID: 1304167538}
   - component: {fileID: 1304167537}
+  - component: {fileID: 1304167541}
   - component: {fileID: 1304167540}
   m_Layer: 5
   m_Name: MegalovaniaButton
@@ -1065,7 +1115,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1304167540}
-        m_MethodName: NextScene
+        m_MethodName: namePasser
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: /MEGALOVANIA.chart
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1304167541}
+        m_MethodName: FindDifficulty
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1076,14 +1137,14 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1304167540}
-        m_MethodName: namePasser
-        m_Mode: 5
+        m_MethodName: NextScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: /MEGALOVANIA.chart
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1304167540}
@@ -1145,7 +1206,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2442cf0766981449f80a2d70a2da4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToChange: SinglePlayerScene
+  sceneToChange: SongDifficultyScene
+--- !u!114 &1304167541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304167535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806b66d0b0c0ee847babb141f64b9b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1344213624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,7 +1231,9 @@ GameObject:
   - component: {fileID: 1344213627}
   - component: {fileID: 1344213626}
   - component: {fileID: 1344213628}
+  - component: {fileID: 1344213631}
   - component: {fileID: 1344213629}
+  - component: {fileID: 1344213630}
   m_Layer: 5
   m_Name: MegalovaniaSelectText
   m_TagString: Untagged
@@ -1348,7 +1423,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1344213629}
+      - m_Target: {fileID: 1344213630}
         m_MethodName: NextScene
         m_Mode: 1
         m_Arguments:
@@ -1370,7 +1445,18 @@ MonoBehaviour:
           m_StringArgument: /MEGALOVANIA.chart
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1344213629}
+      - m_Target: {fileID: 1344213631}
+        m_MethodName: FindDifficulty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1344213630}
         m_MethodName: audioNumber
         m_Mode: 3
         m_Arguments:
@@ -1391,6 +1477,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1878d0fdbb66a54dae3d0f8e8393ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1344213630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344213624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2442cf0766981449f80a2d70a2da4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToChange: SongDifficultyScene
+--- !u!114 &1344213631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344213624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806b66d0b0c0ee847babb141f64b9b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1953423882

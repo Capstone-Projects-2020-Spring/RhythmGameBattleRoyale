@@ -36,7 +36,9 @@ public class Reader : MonoBehaviour
         string name = PlayerPrefs.GetString("name");
         //print("name" +name);
         Holder = Parser.ChartReader(path +name);
-        track = Holder.NoteTracksList.getExpert();
+
+        SelectedDifficulty(PlayerPrefs.GetInt("DifSelected"));
+
         res = float.Parse(Holder.MetaDataInfo.getResolution());
          b = (float)Holder.SyncTrackData[0].getDuration()/1000.0f;
       
@@ -126,6 +128,32 @@ public class Reader : MonoBehaviour
         }
         track.RemoveAt(0);
 
+    }
+
+    public void SelectedDifficulty(int selected)
+    {
+        switch (selected)
+        {
+            case 0:
+                track = Holder.NoteTracksList.getExpert();
+
+                break;
+            case 1:
+                track = Holder.NoteTracksList.getHard();
+
+                break;
+            case 2:
+                track = Holder.NoteTracksList.getMedium();
+
+                break;
+            case 3:
+                track = Holder.NoteTracksList.getEasy();
+
+                break;
+            default:
+
+                break;
+        }
     }
 
 
