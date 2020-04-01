@@ -9,7 +9,6 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public static PhotonLobby lobby;
     public GameObject connectButton;
     public GameObject cancelButton;
-    public string lobbyPlayerName;
 
     private void Awake()
     {
@@ -30,6 +29,12 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
             if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
             {
                 PhotonNetwork.LoadLevel(6);
+
+                for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                {
+                    //Debug.Log("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName);
+                    Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName);
+                }
             }
         }
     }
