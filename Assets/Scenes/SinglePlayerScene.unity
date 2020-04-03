@@ -887,7 +887,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 6.508472e-18}
+  m_BoundingSphereOverride: {x: 0, y: 4.8625015e-10, z: 8.09e-43, w: 0.0000000013647607}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2541,6 +2541,9 @@ MonoBehaviour:
   clip:
   - {fileID: 8300000, guid: df9f903a8d3b8c04181e1a7457a4c2dd, type: 3}
   - {fileID: 8300000, guid: 3f1c7ac3ad27bbc48980999e1d1eae15, type: 3}
+  - {fileID: 8300000, guid: 97d0c85271bc9b040b0c6c5df2f5b2a7, type: 3}
+  - {fileID: 8300000, guid: 21cc546d4d7032c4d91291bdab1c1542, type: 3}
+  - {fileID: 8300000, guid: cdb386a11bd41a747b16306d4aff5e8d, type: 3}
 --- !u!1 &1981962950
 GameObject:
   m_ObjectHideFlags: 0
