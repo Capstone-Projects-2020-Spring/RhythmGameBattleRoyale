@@ -3,33 +3,64 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun.UtilityScripts;
 
 public class PhotonLobby : MonoBehaviourPunCallbacks
 {
     public static PhotonLobby lobby;
     public GameObject connectButton;
     public GameObject cancelButton;
-    public string lobbyPlayerName;
 
     private void Awake()
     {
         lobby = this;
     }
-    
+
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.NickName = "RGBR#" + Random.Range(1000, 9999);
+        PhotonNetwork.LocalPlayer.SetScore(Random.Range(1, 100));
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     private void Update()
     {
-        if(PhotonNetwork.CurrentRoom != null)
+        List<int> scores = new List<int>();
+
+        if (PhotonNetwork.CurrentRoom != null)
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
             {
                 PhotonNetwork.LoadLevel(6);
+
+                for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                {
+                    /*Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName
+                        +", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());*/
+                    Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName
+                        + ", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());
+
+                    scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
+                }
+                scores.Sort();
+
+                var sortedScores = string.Join(", ", scores);
+                //Debug.Log(scores);
+                Debug.LogError("Sorted scores: " + sortedScores);
+
+                //Debug.Log("Lowest score: " + scores[0]);
+                Debug.LogError("Lowest score: " + scores[0]);
+
+                for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                {
+                    if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                    {
+                        //Debug.Log(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
+                        Debug.LogError(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
+
+                    }
+                }
             }
         }
     }
@@ -76,6 +107,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         Debug.LogError("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
         //Debug.Log("Player name: " + PhotonNetwork.NickName);
         Debug.LogError("Player name: " + PhotonNetwork.NickName);
+        //Debug.Log("Player score: " + PhotonNetwork.LocalPlayer.GetScore());
+        Debug.LogError("Player score: " + PhotonNetwork.LocalPlayer.GetScore());
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
