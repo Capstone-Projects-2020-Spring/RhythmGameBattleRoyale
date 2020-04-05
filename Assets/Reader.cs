@@ -14,31 +14,47 @@ public class Reader : MonoBehaviour
     private InstantiatorScript[] noteSpawnerScripts;
     Song Holder;
     List<Note> track;
+    List<SyncTrack> sync;
     float startTime;
     float oldTime = 0f;
     public float b;
     public float res;
     bool songStarted = false;
     private int measure = 0;
-    
+
+
 
     public AudioClip[] clip;
 
     // Start is called before the first frame update
     void Start()
     {
+        string path = Application.dataPath;
+        string name = PlayerPrefs.GetString("name");
+        bool bpmCheck = true;
+
         startTime = 0.0f;
+        
         noteSpawnerScripts = new InstantiatorScript[inputButtonObjects.Length];
 
         
 
-        string path = Application.dataPath;
-        string name = PlayerPrefs.GetString("name");
+       
         //print("name" +name);
         Holder = Parser.ChartReader(path +name);
-        track = Holder.NoteTracksList.getExpert();
+        sync = Holder.SyncTrackData;
+        SelectedDifficulty(PlayerPrefs.GetInt("DifSelected"));
+
         res = float.Parse(Holder.MetaDataInfo.getResolution());
-         b = (float)Holder.SyncTrackData[0].getDuration()/1000.0f;
+
+        while (bpmCheck) {
+            if (sync[0].getIdentifier() != "TS") {
+                b = (float)sync[0].getDuration() / 1000.0f;
+                bpmCheck = false;
+            }
+            sync.RemoveAt(0);
+
+        }
       
         for (int i = 0; i < inputButtonObjects.Length; i++)
         {
@@ -53,7 +69,18 @@ public class Reader : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        print(sync.Count);
         startTime += Time.deltaTime;
+        if (sync.Count > 0 && sync[0].getIdentifier() == "TS")
+        {
+            sync.RemoveAt(0);
+        }
+        if(sync.Count > 0 && startTime >= calcTime(sync[0].getTimeStamp()))
+        {
+            b = (float)sync[0].getDuration()/1000;
+            sync.RemoveAt(0);
+
+        }
         
         if (track.Count>0 && startTime >= calcTime(track[0].getTimeStamp()))
         {
@@ -83,10 +110,27 @@ public class Reader : MonoBehaviour
             {
                 musicObject.GetComponent<AudioSource>().clip = clip[0];
             }
-            else if(PlayerPrefs.GetInt("clip") == 1)
+            if(PlayerPrefs.GetInt("clip") == 1)
             {
+                musicObject.GetComponent<AudioSource>().clip = clip[1];
+            }
+            if (PlayerPrefs.GetInt("clip") == 2)
+            {
+                musicObject.GetComponent<AudioSource>().clip = clip[2];
 
             }
+            if (PlayerPrefs.GetInt("clip") == 3)
+            {
+                musicObject.GetComponent<AudioSource>().clip = clip[3];
+
+            }
+            if (PlayerPrefs.GetInt("clip") == 4)
+            {
+                musicObject.GetComponent<AudioSource>().clip = clip[4];
+
+            }
+
+
             audioData.Play(0);
         }
         songStarted = true;
@@ -126,6 +170,32 @@ public class Reader : MonoBehaviour
         }
         track.RemoveAt(0);
 
+    }
+
+    public void SelectedDifficulty(int selected)
+    {
+        switch (selected)
+        {
+            case 0:
+                track = Holder.NoteTracksList.getExpert();
+
+                break;
+            case 1:
+                track = Holder.NoteTracksList.getHard();
+
+                break;
+            case 2:
+                track = Holder.NoteTracksList.getMedium();
+
+                break;
+            case 3:
+                track = Holder.NoteTracksList.getEasy();
+
+                break;
+            default:
+
+                break;
+        }
     }
 
 

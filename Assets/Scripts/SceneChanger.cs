@@ -24,6 +24,6 @@ public class SceneChanger : MonoBehaviour
     }
     public void Difficulty(int dif)
     {
-        PlayerPrefs.SetInt("DifSelected", dif);
+        PlayerPrefs.SetInt("DifSelected",dif);
     }
 }
