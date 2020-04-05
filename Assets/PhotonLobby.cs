@@ -15,7 +15,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     {
         lobby = this;
     }
-    
+
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -52,12 +52,13 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
                 //Debug.Log("Lowest score: " + scores[0]);
                 Debug.LogError("Lowest score: " + scores[0]);
 
-                for(int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
-                    if(scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                    if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                     {
-                        //Debug.Log(PhotonNetwork.CurrentRoom.Players[i] + " eliminated");
-                        Debug.LogError(PhotonNetwork.CurrentRoom.Players[i] + " eliminated");
+                        //Debug.Log(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
+                        Debug.LogError(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
+
                     }
                 }
             }
