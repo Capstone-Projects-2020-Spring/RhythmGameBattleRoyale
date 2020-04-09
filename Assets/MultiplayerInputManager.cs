@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
+using Photon.Pun.UtilityScripts;
 
 public class MultiplayerInputManager : MonoBehaviour
 {
     //public data members that need explicit assignment in-editor
     public GameObject[] inputButtonObjects;
     public Material[] buttonMaterials;
-    public Text scoreObj;
+    public List<Text> scoreObj = new List<Text>();
 
     //public data members that are assigned at runtime
     public bool[] notesOnButtons;
-    public int score;
+    //public int score;
 
     //private data members
     private MeshRenderer[] inputButtonMaterials;
@@ -97,8 +101,21 @@ public class MultiplayerInputManager : MonoBehaviour
             if (checkStrum())
             {
                 executeStrum();
-                score += 1000 + Random.Range(0, 500);
-                scoreObj.text = score.ToString();
+                PhotonNetwork.LocalPlayer.AddScore(1000 + Random.Range(0, 500));
+                if (SceneManager.GetActiveScene().name == "MultiPlayerScene")
+                {
+                    if (PhotonNetwork.CurrentRoom != null)
+                    {
+                        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+                        {
+                            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                            {
+                                //PhotonNetwork.CurrentRoom.Players[i].AddScore(1000 + Random.Range(0, 500));
+                                scoreObj[i].text = PhotonNetwork.CurrentRoom.Players[i].GetScore().ToString();
+                            }
+                        }
+                    }
+                }
             }
         }
     }

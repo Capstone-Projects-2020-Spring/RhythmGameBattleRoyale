@@ -11,7 +11,7 @@ public class PlayerProps : MonoBehaviourPunCallbacks
 {
     public List<Text> playerNames;
     //public List<Text> playerScores;
-    public Text eliminationText;
+    //public Text eliminationText;
 
     void Start()
     {
@@ -35,7 +35,7 @@ public class PlayerProps : MonoBehaviourPunCallbacks
                     {
                         if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                         {
-                            eliminationText.text = PhotonNetwork.CurrentRoom.Players[i].NickName + " has been eliminated";
+                            //eliminationText.text = PhotonNetwork.CurrentRoom.Players[i].NickName + " has been eliminated";
                         }
                     }
                 }

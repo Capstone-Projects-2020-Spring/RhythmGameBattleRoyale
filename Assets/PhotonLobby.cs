@@ -38,8 +38,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
                 {
                     /*Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName
                         +", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());*/
-                    Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName
-                        + ", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());
+                    Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName);
+                        //+ ", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());
 
                     scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
                 }
@@ -108,7 +108,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         //Debug.Log("Player name: " + PhotonNetwork.NickName);
         Debug.LogError("Player name: " + PhotonNetwork.NickName);
         //Debug.Log("Player score: " + PhotonNetwork.LocalPlayer.GetScore());
-        Debug.LogError("Player score: " + PhotonNetwork.LocalPlayer.GetScore());
+        //Debug.LogError("Player score: " + PhotonNetwork.LocalPlayer.GetScore());
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
