@@ -20,7 +20,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.NickName = "RGBR#" + Random.Range(1000, 9999);
-        PhotonNetwork.LocalPlayer.SetScore(Random.Range(1, 100));
+        PhotonNetwork.LocalPlayer.SetScore(0);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -43,7 +43,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
                     scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
                 }
-                scores.Sort();
+                /* scores.Sort();
 
                 var sortedScores = string.Join(", ", scores);
                 //Debug.Log(scores);
@@ -60,7 +60,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
                         Debug.LogError(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
 
                     }
-                }
+                } */
             }
         }
     }
