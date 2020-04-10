@@ -10,8 +10,8 @@ using Photon.Pun.UtilityScripts;
 public class PlayerProps : MonoBehaviourPunCallbacks
 {
     public List<Text> playerNames;
-    public List<Text> playerScores;
-    public Text eliminationText;
+    //public List<Text> playerScores;
+    //public Text eliminationText;
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class PlayerProps : MonoBehaviourPunCallbacks
                     for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
                     {
                         playerNames[i].text = PhotonNetwork.CurrentRoom.Players[i].NickName;
-                        playerScores[i].text = (PhotonNetwork.CurrentRoom.Players[i].GetScore()).ToString();
+                        //playerScores[i].text = (PhotonNetwork.CurrentRoom.Players[i].GetScore()).ToString();
 
                         scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
                     }
@@ -35,7 +35,7 @@ public class PlayerProps : MonoBehaviourPunCallbacks
                     {
                         if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                         {
-                            eliminationText.text = PhotonNetwork.CurrentRoom.Players[i].NickName + " has been eliminated";
+                            //eliminationText.text = PhotonNetwork.CurrentRoom.Players[i].NickName + " has been eliminated";
                         }
                     }
                 }
@@ -43,9 +43,9 @@ public class PlayerProps : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-       
-    }
 
+    }
 }
