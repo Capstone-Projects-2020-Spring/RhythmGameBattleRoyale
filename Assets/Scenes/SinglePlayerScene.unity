@@ -887,7 +887,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 4.8625015e-10, z: 8.09e-43, w: 0.0000000013647607}
+  m_BoundingSphereOverride: {x: 4.701e-42, y: 1.04e-43, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2531,13 +2531,21 @@ MonoBehaviour:
   - {fileID: 1870910565}
   - {fileID: 1321170509}
   - {fileID: 1072124593}
-  noteObject: {fileID: 8505943039840542402, guid: ba7e62054da986043b5b5d67809d5057,
-    type: 3}
   musicObject: {fileID: 1341393783}
   audioData: {fileID: 1341393784}
   songTime: 2.25
   b: 120
   res: 192
+  TapnoteObject: {fileID: 1000010714891294, guid: 5a0537415d4017c4fad7a4986f502dc1,
+    type: 3}
+  StarnoteObject: {fileID: 1000010986879176, guid: 8f226a393243a0141bace5fd6b60bafa,
+    type: 3}
+  noteObject: {fileID: 8505943039840542402, guid: ba7e62054da986043b5b5d67809d5057,
+    type: 3}
+  TapnoteObjectTemp: {fileID: 1000010714891294, guid: 5a0537415d4017c4fad7a4986f502dc1,
+    type: 3}
+  noteObjectTemp: {fileID: 8505943039840542402, guid: ba7e62054da986043b5b5d67809d5057,
+    type: 3}
   clip:
   - {fileID: 8300000, guid: df9f903a8d3b8c04181e1a7457a4c2dd, type: 3}
   - {fileID: 8300000, guid: 3f1c7ac3ad27bbc48980999e1d1eae15, type: 3}
