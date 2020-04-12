@@ -14,7 +14,7 @@ public class Finder : MonoBehaviour
         string line;
         string dif = ""; ;
         string songPath = PlayerPrefs.GetString("name");
-        string path = Application.dataPath;
+        string path = Application.streamingAssetsPath;
         string text = File.ReadAllText(path+songPath);
         string[] lines = text.Split('\n');
 

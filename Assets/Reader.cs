@@ -38,7 +38,7 @@ public class Reader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string path = Application.dataPath;
+        string path = Application.streamingAssetsPath;
         string name = PlayerPrefs.GetString("name");
         bool bpmCheck = true;
 

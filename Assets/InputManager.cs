@@ -105,7 +105,7 @@ public class InputManager : MonoBehaviour
     private bool checkStrum()
     {
         bool atLeastOne = false;
-        bool easy = chance(.04f);
+        bool easy = chance(1.00f);
         for (int i = 0; i < buttonStates.Length; i++)
         {
             if ((buttonStates[i])!= notesOnButtons[i] && !easy)
