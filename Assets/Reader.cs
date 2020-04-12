@@ -6,7 +6,6 @@ using ChartParser;
 public class Reader : MonoBehaviour
 {
     public GameObject[] inputButtonObjects;
-    public GameObject noteObject;
     public GameObject musicObject;
     public AudioSource audioData;
     public float songTime;
@@ -21,6 +20,16 @@ public class Reader : MonoBehaviour
     public float res;
     bool songStarted = false;
     private int measure = 0;
+    public GameObject TapnoteObject;
+    public GameObject StarnoteObject;
+    public GameObject noteObject;
+    public GameObject TapnoteObjectTemp;
+    public GameObject noteObjectTemp;
+    float starPowerTime = 0.0f;
+    float timePLaceHolder;
+    bool starPower = false;
+
+
 
 
 
@@ -84,7 +93,32 @@ public class Reader : MonoBehaviour
         
         if (track.Count>0 && startTime >= calcTime(track[0].getTimeStamp()))
         {
-            check(track[0].getChord());
+           // print(track[0].getType());
+           if (starPower == true && startTime > starPowerTime)
+            {
+                starPower = false;
+                TapnoteObject = TapnoteObjectTemp;
+                noteObject = noteObjectTemp;
+
+            }
+            if (track[0].getType() == "Normal")
+            {
+                check(track[0].getChord(), noteObject);
+            }
+            else if (track[0].getType() == "Tap")
+            {
+                check(track[0].getChord(), TapnoteObject);
+            }
+            else if (track[0].getType() == "Star")
+            {
+                TapnoteObject = StarnoteObject;
+                noteObject = StarnoteObject;
+                starPower = true;
+                timePLaceHolder = startTime;
+                starPowerTime = (((track[0].getDuration() / res) * (60000.0f / b)) / 1000.0f) + timePLaceHolder;
+
+                track.RemoveAt(0);
+            }
             oldTime = startTime;
         }
         if (startTime >= calcTime((res * measure)))
@@ -137,30 +171,30 @@ public class Reader : MonoBehaviour
     }
 
 
-    public void check(List<ButtonColor> chord)
+    public void check(List<ButtonColor> chord, GameObject noteSkin)
     {
         foreach (ButtonColor color in chord)
         {
             switch (color)
             {
                 case ButtonColor.Green:
-                    noteSpawnerScripts[0].SpawnNote();
+                    noteSpawnerScripts[0].SpawnNote(noteSkin);
                     print("green");
                     break;
                 case ButtonColor.Red:
-                    noteSpawnerScripts[1].SpawnNote();
+                    noteSpawnerScripts[1].SpawnNote(noteSkin);
                     print("red");
                     break;
                 case ButtonColor.Yellow:
-                    noteSpawnerScripts[2].SpawnNote();
+                    noteSpawnerScripts[2].SpawnNote(noteSkin);
                     print("yellow");
                     break;
                 case ButtonColor.Blue:
-                    noteSpawnerScripts[3].SpawnNote();
+                    noteSpawnerScripts[3].SpawnNote(noteSkin);
                     print("blue");
                     break;
                 case ButtonColor.Orange:
-                    noteSpawnerScripts[4].SpawnNote();
+                    noteSpawnerScripts[4].SpawnNote(noteSkin);
                     print("orange");
                     break;
                 default:

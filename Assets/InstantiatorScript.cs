@@ -40,9 +40,9 @@ public class InstantiatorScript : MonoBehaviour
         }
     }
 
-    public void SpawnNote()
+    public void SpawnNote(GameObject noteSkin)
     {
-        GameObject note = Instantiate(noteObject, this.gameObject.transform.position, noteObject.transform.rotation);
+        GameObject note = Instantiate(noteSkin, this.gameObject.transform.position, noteObject.transform.rotation);
         note.GetComponent<MeshRenderer>().material = noteMaterial;
     }
 
