@@ -12,6 +12,7 @@ public class PlayerProps : MonoBehaviourPunCallbacks
     public List<Text> playerNames;
     //public List<Text> playerScores;
     //public Text eliminationText;
+    public Text lobbyPlayer;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class PlayerProps : MonoBehaviourPunCallbacks
                     {
                         playerNames[i].text = PhotonNetwork.CurrentRoom.Players[i].NickName;
                         //playerScores[i].text = (PhotonNetwork.CurrentRoom.Players[i].GetScore()).ToString();
+                        lobbyPlayer.text = "You are " + PhotonNetwork.LocalPlayer.NickName;
 
                         scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
                     }
