@@ -16,7 +16,7 @@ public class MultiplayerInputManager : MonoBehaviour
 
     //public data members that are assigned at runtime
     public bool[] notesOnButtons;
-    //public int score;
+    public Text eliminationText;
 
     //private data members
     private MeshRenderer[] inputButtonMaterials;
@@ -102,19 +102,29 @@ public class MultiplayerInputManager : MonoBehaviour
             {
                 executeStrum();
                 PhotonNetwork.LocalPlayer.AddScore(1000 + Random.Range(0, 500));
-                if (SceneManager.GetActiveScene().name == "MultiPlayerScene")
+                getScores();
+            }
+        }
+
+        getScores();
+
+        List<int> scores = new List<int>();
+
+        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
+        }
+
+        scores.Sort();
+        int highestScore = scores[scores.Count - 1];
+        
+        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (highestScore > 10000)
+            {
+                if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    if (PhotonNetwork.CurrentRoom != null)
-                    {
-                        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
-                        {
-                            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-                            {
-                                //PhotonNetwork.CurrentRoom.Players[i].AddScore(1000 + Random.Range(0, 500));
-                                scoreObj[i].text = PhotonNetwork.CurrentRoom.Players[i].GetScore().ToString();
-                            }
-                        }
-                    }
+                    eliminationText.text = PhotonNetwork.CurrentRoom.Players[i].NickName + " eliminated";
                 }
             }
         }
@@ -123,10 +133,9 @@ public class MultiplayerInputManager : MonoBehaviour
     private bool checkStrum()
     {
         bool atLeastOne = false;
-        bool easy = chance(.04f);
         for (int i = 0; i < buttonStates.Length; i++)
         {
-            if ((buttonStates[i]) != notesOnButtons[i] && !easy)
+            if ((buttonStates[i]) != notesOnButtons[i])
             {
                 return false;
             }
@@ -136,11 +145,6 @@ public class MultiplayerInputManager : MonoBehaviour
             }
         }
         return atLeastOne;
-    }
-
-    private bool chance(float p)
-    {
-        return Random.Range(0.0f, 1.0f) <= p;
     }
 
     private void executeStrum()
@@ -155,4 +159,19 @@ public class MultiplayerInputManager : MonoBehaviour
             notesOnButtons[i] = false;
         }
     }
+
+    private void getScores()
+    {
+        if (SceneManager.GetActiveScene().name == "MultiPlayerScene")
+        {
+            if (PhotonNetwork.CurrentRoom != null)
+            {
+                for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                {
+                        scoreObj[i].text = PhotonNetwork.CurrentRoom.Players[i].GetScore().ToString();
+                }
+            }
+        }
+    }
+    
 }

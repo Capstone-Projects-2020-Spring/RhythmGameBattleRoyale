@@ -26,13 +26,11 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        List<int> scores = new List<int>();
-
         if (PhotonNetwork.CurrentRoom != null)
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
             {
-                PhotonNetwork.LoadLevel(6);
+                PhotonNetwork.LoadLevel("MultiPlayerScene");
 
                 for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
@@ -40,27 +38,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
                         +", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());*/
                     Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName);
                         //+ ", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());
-
-                    scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
                 }
-                /* scores.Sort();
-
-                var sortedScores = string.Join(", ", scores);
-                //Debug.Log(scores);
-                Debug.LogError("Sorted scores: " + sortedScores);
-
-                //Debug.Log("Lowest score: " + scores[0]);
-                Debug.LogError("Lowest score: " + scores[0]);
-
-                for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-                {
-                    if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
-                    {
-                        //Debug.Log(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
-                        Debug.LogError(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
-
-                    }
-                } */
             }
         }
     }
