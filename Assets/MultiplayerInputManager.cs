@@ -125,6 +125,8 @@ public class MultiplayerInputManager : MonoBehaviour
                 if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
                     eliminationText.text = PhotonNetwork.CurrentRoom.Players[i].NickName + " eliminated";
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Spectate", PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
         }
@@ -173,5 +175,14 @@ public class MultiplayerInputManager : MonoBehaviour
             }
         }
     }
-    
+
+    [PunRPC]
+    private void RPC_Spectate()
+    {
+        PhotonNetwork.AutomaticallySyncScene = false;
+        SceneManager.LoadScene("SpectatorScene");
+        //Debug.Log("Spectating..."); 
+        Debug.LogError("Spectating...");
+    }
+
 }

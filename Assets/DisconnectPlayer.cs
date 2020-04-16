@@ -12,6 +12,5 @@ public class DisconnectPlayer : MonoBehaviour
         PhotonNetwork.Disconnect();
         //Debug.Log("Disconnected");
         Debug.LogError("Disconnected");
-        PhotonNetwork.LoadLevel(0);
     }
 }
