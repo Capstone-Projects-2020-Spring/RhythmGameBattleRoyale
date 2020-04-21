@@ -23,6 +23,8 @@ public class MultiplayerInputManager : MonoBehaviour
     private bool[] buttonStates;
     private MultiplayerButtonManager[] buttonScriptReferences;
 
+    private bool validInput = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,66 +45,69 @@ public class MultiplayerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (validInput == true)
         {
-            inputButtonMaterials[0].material = buttonMaterials[5];
-            buttonStates[0] = true;
-        }
-        if (Input.GetButtonDown("Fire2"))
-        {
-            inputButtonMaterials[1].material = buttonMaterials[6];
-            buttonStates[1] = true;
-        }
-        if (Input.GetButtonDown("Fire3"))
-        {
-            inputButtonMaterials[2].material = buttonMaterials[7];
-            buttonStates[2] = true;
-        }
-        if (Input.GetButtonDown("Fire4"))
-        {
-            inputButtonMaterials[3].material = buttonMaterials[8];
-            buttonStates[3] = true;
-        }
-        if (Input.GetButtonDown("Fire5"))
-        {
-            inputButtonMaterials[4].material = buttonMaterials[9];
-            buttonStates[4] = true;
-        }
-
-        if (Input.GetButtonUp("Fire1"))
-        {
-            inputButtonMaterials[0].material = buttonMaterials[0];
-            buttonStates[0] = false;
-        }
-        if (Input.GetButtonUp("Fire2"))
-        {
-            inputButtonMaterials[1].material = buttonMaterials[1];
-            buttonStates[1] = false;
-        }
-        if (Input.GetButtonUp("Fire3"))
-        {
-            inputButtonMaterials[2].material = buttonMaterials[2];
-            buttonStates[2] = false;
-        }
-        if (Input.GetButtonUp("Fire4"))
-        {
-            inputButtonMaterials[3].material = buttonMaterials[3];
-            buttonStates[3] = false;
-        }
-        if (Input.GetButtonUp("Fire5"))
-        {
-            inputButtonMaterials[4].material = buttonMaterials[4];
-            buttonStates[4] = false;
-        }
-
-
-        if (Input.GetButtonDown("Fire6") || Input.GetButtonDown("Strum") || true)
-        {
-            if (checkStrum())
+            if (Input.GetButtonDown("Fire1"))
             {
-                executeStrum();
-                PhotonNetwork.LocalPlayer.AddScore(1000 + Random.Range(0, 500));
-                getScores();
+                inputButtonMaterials[0].material = buttonMaterials[5];
+                buttonStates[0] = true;
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                inputButtonMaterials[1].material = buttonMaterials[6];
+                buttonStates[1] = true;
+            }
+            if (Input.GetButtonDown("Fire3"))
+            {
+                inputButtonMaterials[2].material = buttonMaterials[7];
+                buttonStates[2] = true;
+            }
+            if (Input.GetButtonDown("Fire4"))
+            {
+                inputButtonMaterials[3].material = buttonMaterials[8];
+                buttonStates[3] = true;
+            }
+            if (Input.GetButtonDown("Fire5"))
+            {
+                inputButtonMaterials[4].material = buttonMaterials[9];
+                buttonStates[4] = true;
+            }
+
+            if (Input.GetButtonUp("Fire1"))
+            {
+                inputButtonMaterials[0].material = buttonMaterials[0];
+                buttonStates[0] = false;
+            }
+            if (Input.GetButtonUp("Fire2"))
+            {
+                inputButtonMaterials[1].material = buttonMaterials[1];
+                buttonStates[1] = false;
+            }
+            if (Input.GetButtonUp("Fire3"))
+            {
+                inputButtonMaterials[2].material = buttonMaterials[2];
+                buttonStates[2] = false;
+            }
+            if (Input.GetButtonUp("Fire4"))
+            {
+                inputButtonMaterials[3].material = buttonMaterials[3];
+                buttonStates[3] = false;
+            }
+            if (Input.GetButtonUp("Fire5"))
+            {
+                inputButtonMaterials[4].material = buttonMaterials[4];
+                buttonStates[4] = false;
+            }
+
+
+            if (Input.GetButtonDown("Fire6") || Input.GetButtonDown("Strum") || true)
+            {
+                if (checkStrum())
+                {
+                    executeStrum();
+                    PhotonNetwork.LocalPlayer.AddScore(1000 + Random.Range(0, 500));
+                    getScores();
+                }
             }
         }
 
@@ -124,9 +129,20 @@ public class MultiplayerInputManager : MonoBehaviour
             {
                 if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    eliminationText.text = PhotonNetwork.CurrentRoom.Players[i].NickName + " eliminated";
                     PhotonView PV = PhotonView.Get(this);
-                    PV.RPC("RPC_Spectate", PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
+                }
+            }
+        }
+
+        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (highestScore > 20000)
+            {
+                if (scores[1] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
         }
@@ -177,12 +193,10 @@ public class MultiplayerInputManager : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_Spectate()
+    private void RPC_Eliminate()
     {
-        PhotonNetwork.AutomaticallySyncScene = false;
-        SceneManager.LoadScene("SpectatorScene");
-        //Debug.Log("Spectating..."); 
-        Debug.LogError("Spectating...");
+        validInput = false;
+        eliminationText.text = "You have been eliminated";
     }
 
 }
