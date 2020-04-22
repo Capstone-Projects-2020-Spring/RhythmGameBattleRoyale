@@ -24,6 +24,8 @@ public class MultiplayerInputManager : MonoBehaviour
     private MultiplayerButtonManager[] buttonScriptReferences;
 
     private bool validInput = true;
+    public GameObject backButton;
+    public PlayerProps playerProps;
 
     // Start is called before the first frame update
     void Start()
@@ -131,6 +133,7 @@ public class MultiplayerInputManager : MonoBehaviour
                 {
                     PhotonView PV = PhotonView.Get(this);
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
         }
@@ -143,6 +146,8 @@ public class MultiplayerInputManager : MonoBehaviour
                 {
                     PhotonView PV = PhotonView.Get(this);
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_BackButton", RpcTarget.All);
                 }
             }
         }
@@ -186,7 +191,7 @@ public class MultiplayerInputManager : MonoBehaviour
             {
                 for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
-                        scoreObj[i].text = PhotonNetwork.CurrentRoom.Players[i].GetScore().ToString();
+                    scoreObj[i].text = PhotonNetwork.CurrentRoom.Players[i].GetScore().ToString();
                 }
             }
         }
@@ -197,6 +202,32 @@ public class MultiplayerInputManager : MonoBehaviour
     {
         validInput = false;
         eliminationText.text = "You have been eliminated";
+    }
+
+    [PunRPC]
+    private void RPC_BackButton()
+    {
+        backButton.SetActive(true);
+    }
+
+    [PunRPC]
+    private void RPC_CancelPlayer(Player player)
+    {
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                if (playerProps.playerNames[i].text == player.NickName)
+                {
+                    playerProps.playerNames[i].GetComponent<Text>().color = Color.red;
+                }
+                if(scoreObj[i].text == player.GetScore().ToString())
+                {
+                    scoreObj[i].GetComponent<Text>().color = Color.red;
+                }
+            }
+        }
+        
     }
 
 }

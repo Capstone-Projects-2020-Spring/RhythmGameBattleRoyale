@@ -36,5 +36,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - RPC_Spectate
   - RPC_Eliminate
+  - RPC_BackButton
+  - RPC_CancelPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 0

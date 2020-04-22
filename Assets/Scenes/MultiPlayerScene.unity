@@ -1233,6 +1233,8 @@ MonoBehaviour:
   - {fileID: 949696772}
   notesOnButtons: 0000000000
   eliminationText: {fileID: 1992481415}
+  backButton: {fileID: 700704759}
+  playerProps: {fileID: 1418536851}
 --- !u!114 &685638574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,7 +1330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &700704760
 RectTransform:
   m_ObjectHideFlags: 0
