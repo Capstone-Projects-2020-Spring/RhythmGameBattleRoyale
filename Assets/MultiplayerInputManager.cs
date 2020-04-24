@@ -16,7 +16,7 @@ public class MultiplayerInputManager : MonoBehaviour
 
     //public data members that are assigned at runtime
     public bool[] notesOnButtons;
-    public Text eliminationText;
+    public Text announcementText;
 
     //private data members
     private MeshRenderer[] inputButtonMaterials;
@@ -24,6 +24,7 @@ public class MultiplayerInputManager : MonoBehaviour
     private MultiplayerButtonManager[] buttonScriptReferences;
 
     private bool validInput = true;
+    private bool gameOver = false;
     public GameObject backButton;
     public PlayerProps playerProps;
 
@@ -117,14 +118,17 @@ public class MultiplayerInputManager : MonoBehaviour
 
         List<int> scores = new List<int>();
 
-        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        if (PhotonNetwork.CurrentRoom != null)
         {
-            scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
+            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
+            }
         }
 
         scores.Sort();
         int highestScore = scores[scores.Count - 1];
-        
+
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
             if (highestScore > 3000)
@@ -188,6 +192,12 @@ public class MultiplayerInputManager : MonoBehaviour
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_BackButton", RpcTarget.All);
                 }
+
+                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Winner", PhotonNetwork.CurrentRoom.Players[i]);
+                }
             }
         }
     }
@@ -235,18 +245,26 @@ public class MultiplayerInputManager : MonoBehaviour
             }
         }
     }
+    
 
     [PunRPC]
     private void RPC_Eliminate()
     {
         validInput = false;
-        eliminationText.text = "You have been eliminated";
+        announcementText.text = "You have been eliminated";
     }
 
     [PunRPC]
     private void RPC_BackButton()
     {
         backButton.SetActive(true);
+    }
+
+    [PunRPC]
+    private void RPC_Winner()
+    {
+        announcementText.text = "You are the winner!";
+        validInput = false;
     }
 
     [PunRPC]
@@ -266,7 +284,6 @@ public class MultiplayerInputManager : MonoBehaviour
                 }
             }
         }
-        
     }
 
 }

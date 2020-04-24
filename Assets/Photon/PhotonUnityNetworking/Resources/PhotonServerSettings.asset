@@ -38,5 +38,7 @@ MonoBehaviour:
   - RPC_Eliminate
   - RPC_BackButton
   - RPC_CancelPlayer
+  - RPC_Winner
+  - RPC_DisconnectToMenu
   DisableAutoOpenWizard: 1
   ShowSettings: 0
