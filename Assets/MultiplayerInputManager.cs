@@ -127,7 +127,7 @@ public class MultiplayerInputManager : MonoBehaviour
         
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 10000)
+            if (highestScore > 3000)
             {
                 if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -140,9 +140,48 @@ public class MultiplayerInputManager : MonoBehaviour
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 20000)
+            if (highestScore > 6000)
             {
                 if (scores[1] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
+                }
+            }
+        }
+
+        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (highestScore > 9000)
+            {
+                if (scores[2] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
+                }
+            }
+        }
+
+        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (highestScore > 12000)
+            {
+                if (scores[3] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
+                }
+            }
+        }
+
+        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (highestScore > 15000)
+            {
+                if (scores[4] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
                     PhotonView PV = PhotonView.Get(this);
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
