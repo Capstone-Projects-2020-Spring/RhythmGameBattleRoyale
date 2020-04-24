@@ -16,17 +16,23 @@ public class MultiplayerInputManager : MonoBehaviour
 
     //public data members that are assigned at runtime
     public bool[] notesOnButtons;
-    public Text announcementText;
+
 
     //private data members
     private MeshRenderer[] inputButtonMaterials;
     private bool[] buttonStates;
     private MultiplayerButtonManager[] buttonScriptReferences;
 
-    private bool validInput = true;
-    private bool gameOver = false;
+    public Text announcementText;
+    public Text powerupText;
     public GameObject backButton;
     public PlayerProps playerProps;
+    public Camera camera;
+    private bool validInput = true;
+    private bool firstPowerupUsed = false;
+    private bool secondPowerupUsed = false;
+    private bool thirdPowerupUsed = false;
+    private bool fourthPowerupUsed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -112,6 +118,11 @@ public class MultiplayerInputManager : MonoBehaviour
                     getScores();
                 }
             }
+
+            /*if (Input.GetButtonDown("Test"))
+            {
+                camera.transform.Rotate(0, 0 * Time.deltaTime, 180);
+            }*/
         }
 
         getScores();
@@ -139,6 +150,15 @@ public class MultiplayerInputManager : MonoBehaviour
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
                 }
+                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    if (firstPowerupUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
+                        firstPowerupUsed = true;
+                    }
+                }
             }
         }
 
@@ -151,6 +171,15 @@ public class MultiplayerInputManager : MonoBehaviour
                     PhotonView PV = PhotonView.Get(this);
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
+                }
+                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    if (secondPowerupUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
+                        secondPowerupUsed = true;
+                    }
                 }
             }
         }
@@ -165,6 +194,15 @@ public class MultiplayerInputManager : MonoBehaviour
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
                 }
+                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    if (thirdPowerupUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
+                        thirdPowerupUsed = true;
+                    }
+                }
             }
         }
 
@@ -177,6 +215,15 @@ public class MultiplayerInputManager : MonoBehaviour
                     PhotonView PV = PhotonView.Get(this);
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
+                }
+                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    if (fourthPowerupUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
+                        fourthPowerupUsed = true;
+                    }
                 }
             }
         }
@@ -286,4 +333,18 @@ public class MultiplayerInputManager : MonoBehaviour
         }
     }
 
+    IEnumerator Powerup1()
+    {
+        validInput = false;
+        powerupText.text = "Incoming Powerup";
+        yield return new WaitForSeconds(5);
+        validInput = true;
+        powerupText.text = " ";
+    }
+
+    [PunRPC]
+    private void RPC_Powerup1()
+    {
+        StartCoroutine(Powerup1());
+    }
 }
