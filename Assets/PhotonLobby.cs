@@ -71,7 +71,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         //Debug.Log("Trying to create a lobby");
         Debug.LogError("Trying to create a lobby");
         int randomRoomName = Random.Range(0, 1000);
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 6 };
+        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 4 };
         PhotonNetwork.CreateRoom("Lobby " + randomRoomName, roomOptions);
         //Debug.Log("Lobby created");
         Debug.LogError("Lobby created");

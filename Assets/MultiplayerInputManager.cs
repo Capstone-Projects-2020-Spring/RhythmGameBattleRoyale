@@ -27,12 +27,11 @@ public class MultiplayerInputManager : MonoBehaviour
     public Text powerupText;
     public GameObject backButton;
     public PlayerProps playerProps;
-    public Camera camera;
+
     private bool validInput = true;
-    private bool firstPowerupUsed = false;
-    private bool secondPowerupUsed = false;
-    private bool thirdPowerupUsed = false;
-    private bool fourthPowerupUsed = false;
+
+    private bool hasPowerup = false;
+    private bool powerupUsed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +53,19 @@ public class MultiplayerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        List<int> scores = new List<int>();
+
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
+            }
+        }
+
+        int highestScore = scores[scores.Count - 1];
+
         if (validInput == true)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -119,30 +131,41 @@ public class MultiplayerInputManager : MonoBehaviour
                 }
             }
 
-            /*if (Input.GetButtonDown("Test"))
+            if (Input.GetButtonDown("Powerup"))
             {
-                camera.transform.Rotate(0, 0 * Time.deltaTime, 180);
-            }*/
-        }
+                if (hasPowerup)
+                {
+                    if (PhotonNetwork.CurrentRoom != null)
+                    {
+                        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                        {
+                            if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                            {
+                                if (powerupUsed == false)
+                                {
+                                    PhotonView PV = PhotonView.Get(this);
+                                    PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
+                                    powerupUsed = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                hasPowerup = false;
+                if (hasPowerup == false)
+                {
+                    powerupText.text = " ";
+                }
 
-        getScores();
-
-        List<int> scores = new List<int>();
-
-        if (PhotonNetwork.CurrentRoom != null)
-        {
-            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            {
-                scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
             }
         }
 
+        getScores();
         scores.Sort();
-        int highestScore = scores[scores.Count - 1];
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 3000)
+            if (highestScore > 5000)
             {
                 if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -150,21 +173,17 @@ public class MultiplayerInputManager : MonoBehaviour
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
                 }
-                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                if (scores[1] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    if (firstPowerupUsed == false)
-                    {
-                        PhotonView PV = PhotonView.Get(this);
-                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
-                        firstPowerupUsed = true;
-                    }
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_GivePowerup", PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
         }
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 6000)
+            if (highestScore > 10000)
             {
                 if (scores[1] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -172,41 +191,34 @@ public class MultiplayerInputManager : MonoBehaviour
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
                 }
-                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                if (scores[2] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    if (secondPowerupUsed == false)
-                    {
-                        PhotonView PV = PhotonView.Get(this);
-                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
-                        secondPowerupUsed = true;
-                    }
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_GivePowerup", PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
         }
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 9000)
+            if (highestScore > 15000)
             {
                 if (scores[2] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
                     PhotonView PV = PhotonView.Get(this);
                     PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
                     PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
+                    PV.RPC("RPC_BackButton", RpcTarget.All);
                 }
                 if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    if (thirdPowerupUsed == false)
-                    {
-                        PhotonView PV = PhotonView.Get(this);
-                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
-                        thirdPowerupUsed = true;
-                    }
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Winner", PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
         }
 
-        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        /*for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
             if (highestScore > 12000)
             {
@@ -218,12 +230,8 @@ public class MultiplayerInputManager : MonoBehaviour
                 }
                 if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    if (fourthPowerupUsed == false)
-                    {
-                        PhotonView PV = PhotonView.Get(this);
-                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
-                        fourthPowerupUsed = true;
-                    }
+                    PhotonView PV = PhotonView.Get(this);
+                    PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
         }
@@ -246,7 +254,7 @@ public class MultiplayerInputManager : MonoBehaviour
                     PV.RPC("RPC_Winner", PhotonNetwork.CurrentRoom.Players[i]);
                 }
             }
-        }
+        }*/
     }
 
     private bool checkStrum()
@@ -292,7 +300,7 @@ public class MultiplayerInputManager : MonoBehaviour
             }
         }
     }
-    
+
 
     [PunRPC]
     private void RPC_Eliminate()
@@ -325,7 +333,7 @@ public class MultiplayerInputManager : MonoBehaviour
                 {
                     playerProps.playerNames[i].GetComponent<Text>().color = Color.red;
                 }
-                if(scoreObj[i].text == player.GetScore().ToString())
+                if (scoreObj[i].text == player.GetScore().ToString())
                 {
                     scoreObj[i].GetComponent<Text>().color = Color.red;
                 }
@@ -347,4 +355,13 @@ public class MultiplayerInputManager : MonoBehaviour
     {
         StartCoroutine(Powerup1());
     }
+
+    [PunRPC]
+    private void RPC_GivePowerup()
+    {
+        hasPowerup = true;
+        powerupText.text = "Press P to use powerup";
+
+    }
+
 }

@@ -42,5 +42,6 @@ MonoBehaviour:
   - RPC_DisconnectToMenu
   - RPC_Powerup1
   - RPC_Powerup2
+  - RPC_GivePowerup
   DisableAutoOpenWizard: 1
   ShowSettings: 0
