@@ -43,5 +43,6 @@ MonoBehaviour:
   - RPC_Powerup1
   - RPC_Powerup2
   - RPC_GivePowerup
+  - RPC_Multiplier
   DisableAutoOpenWizard: 1
   ShowSettings: 0

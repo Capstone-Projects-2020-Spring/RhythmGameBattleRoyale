@@ -29,9 +29,11 @@ public class MultiplayerInputManager : MonoBehaviour
     public PlayerProps playerProps;
 
     private bool validInput = true;
-
-    private bool hasPowerup = false;
-    private bool powerupUsed = false;
+    private bool multiplierActive = false;
+    private bool firstPowerupUsed = false;
+    private bool secondPowerupUsed = false;
+    private bool firstMultiplierUsed = false;
+    private bool secondMultiplierUsed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,19 +55,6 @@ public class MultiplayerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        List<int> scores = new List<int>();
-
-        if (PhotonNetwork.CurrentRoom != null)
-        {
-            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            {
-                scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
-            }
-        }
-
-        int highestScore = scores[scores.Count - 1];
-
         if (validInput == true)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -126,46 +115,35 @@ public class MultiplayerInputManager : MonoBehaviour
                 if (checkStrum())
                 {
                     executeStrum();
-                    PhotonNetwork.LocalPlayer.AddScore(1000 + Random.Range(0, 500));
+                    if (multiplierActive == false)
+                    {
+                        PhotonNetwork.LocalPlayer.AddScore(1000 + Random.Range(0, 500));
+                    }
+                    else
+                    {
+                        PhotonNetwork.LocalPlayer.AddScore(1500 + Random.Range(0, 750));
+                    }
                     getScores();
                 }
-            }
-
-            if (Input.GetButtonDown("Powerup"))
-            {
-                if (hasPowerup)
-                {
-                    if (PhotonNetwork.CurrentRoom != null)
-                    {
-                        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-                        {
-                            if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
-                            {
-                                if (powerupUsed == false)
-                                {
-                                    PhotonView PV = PhotonView.Get(this);
-                                    PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
-                                    powerupUsed = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                hasPowerup = false;
-                if (hasPowerup == false)
-                {
-                    powerupText.text = " ";
-                }
-
             }
         }
 
         getScores();
+        List<int> scores = new List<int>();
+
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
+            }
+        }
         scores.Sort();
+        int highestScore = scores[scores.Count - 1];
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 5000)
+            if (highestScore > 20000)
             {
                 if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -175,15 +153,28 @@ public class MultiplayerInputManager : MonoBehaviour
                 }
                 if (scores[1] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    PhotonView PV = PhotonView.Get(this);
-                    PV.RPC("RPC_GivePowerup", PhotonNetwork.CurrentRoom.Players[i]);
+                    if (firstMultiplierUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Multiplier", PhotonNetwork.CurrentRoom.Players[i]);
+                        firstMultiplierUsed = true;
+                    }
+                }
+                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    if (firstPowerupUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
+                        firstPowerupUsed = true;
+                    }
                 }
             }
         }
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 10000)
+            if (highestScore > 40000)
             {
                 if (scores[1] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -193,15 +184,28 @@ public class MultiplayerInputManager : MonoBehaviour
                 }
                 if (scores[2] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
-                    PhotonView PV = PhotonView.Get(this);
-                    PV.RPC("RPC_GivePowerup", PhotonNetwork.CurrentRoom.Players[i]);
+                    if (secondMultiplierUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Multiplier", PhotonNetwork.CurrentRoom.Players[i]);
+                        secondMultiplierUsed = true;
+                    }
+                }
+                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
+                {
+                    if (secondPowerupUsed == false)
+                    {
+                        PhotonView PV = PhotonView.Get(this);
+                        PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
+                        secondPowerupUsed = true;
+                    }
                 }
             }
         }
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 15000)
+            if (highestScore > 60000)
             {
                 if (scores[2] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -217,44 +221,6 @@ public class MultiplayerInputManager : MonoBehaviour
                 }
             }
         }
-
-        /*for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            if (highestScore > 12000)
-            {
-                if (scores[3] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
-                {
-                    PhotonView PV = PhotonView.Get(this);
-                    PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
-                    PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
-                }
-                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
-                {
-                    PhotonView PV = PhotonView.Get(this);
-                    PV.RPC("RPC_Powerup1", PhotonNetwork.CurrentRoom.Players[i]);
-                }
-            }
-        }
-
-        for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            if (highestScore > 15000)
-            {
-                if (scores[4] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
-                {
-                    PhotonView PV = PhotonView.Get(this);
-                    PV.RPC("RPC_Eliminate", PhotonNetwork.CurrentRoom.Players[i]);
-                    PV.RPC("RPC_CancelPlayer", RpcTarget.All, PhotonNetwork.CurrentRoom.Players[i]);
-                    PV.RPC("RPC_BackButton", RpcTarget.All);
-                }
-
-                if (highestScore == PhotonNetwork.CurrentRoom.Players[i].GetScore())
-                {
-                    PhotonView PV = PhotonView.Get(this);
-                    PV.RPC("RPC_Winner", PhotonNetwork.CurrentRoom.Players[i]);
-                }
-            }
-        }*/
     }
 
     private bool checkStrum()
@@ -341,6 +307,21 @@ public class MultiplayerInputManager : MonoBehaviour
         }
     }
 
+    IEnumerator Multiplier()
+    {
+        multiplierActive = true;
+        powerupText.text = "Score Multiplier";
+        yield return new WaitForSeconds(5);
+        multiplierActive = false;
+        powerupText.text = " ";
+    }
+
+    [PunRPC]
+    private void RPC_Multiplier()
+    {
+        StartCoroutine(Multiplier());
+    }
+
     IEnumerator Powerup1()
     {
         validInput = false;
@@ -354,14 +335,6 @@ public class MultiplayerInputManager : MonoBehaviour
     private void RPC_Powerup1()
     {
         StartCoroutine(Powerup1());
-    }
-
-    [PunRPC]
-    private void RPC_GivePowerup()
-    {
-        hasPowerup = true;
-        powerupText.text = "Press P to use powerup";
-
     }
 
 }
