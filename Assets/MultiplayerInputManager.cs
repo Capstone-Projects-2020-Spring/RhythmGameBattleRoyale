@@ -143,7 +143,7 @@ public class MultiplayerInputManager : MonoBehaviour
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 20000)
+            if (highestScore > 40000)
             {
                 if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -174,7 +174,7 @@ public class MultiplayerInputManager : MonoBehaviour
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 40000)
+            if (highestScore > 80000)
             {
                 if (scores[1] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
@@ -205,7 +205,7 @@ public class MultiplayerInputManager : MonoBehaviour
 
         for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            if (highestScore > 60000)
+            if (highestScore > 120000)
             {
                 if (scores[2] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
                 {
