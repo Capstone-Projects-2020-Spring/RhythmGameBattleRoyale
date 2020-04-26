@@ -26,56 +26,32 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        List<int> scores = new List<int>();
-
         if (PhotonNetwork.CurrentRoom != null)
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
             {
-                PhotonNetwork.LoadLevel(6);
+                PhotonNetwork.LoadLevel("MultiPlayerScene");
 
                 for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
-                    /*Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName
-                        +", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());*/
-                    Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName);
-                        //+ ", Score: " + PhotonNetwork.CurrentRoom.Players[i].GetScore());
-
-                    scores.Add(PhotonNetwork.CurrentRoom.Players[i].GetScore());
+                    Debug.Log("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName);
+                    //Debug.LogError("Players in lobby: #" + i + " - " + PhotonNetwork.CurrentRoom.Players[i].NickName);
                 }
-                /* scores.Sort();
-
-                var sortedScores = string.Join(", ", scores);
-                //Debug.Log(scores);
-                Debug.LogError("Sorted scores: " + sortedScores);
-
-                //Debug.Log("Lowest score: " + scores[0]);
-                Debug.LogError("Lowest score: " + scores[0]);
-
-                for (int i = 1; i <= PhotonNetwork.CurrentRoom.PlayerCount; i++)
-                {
-                    if (scores[0] == PhotonNetwork.CurrentRoom.Players[i].GetScore())
-                    {
-                        //Debug.Log(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
-                        Debug.LogError(PhotonNetwork.CurrentRoom.Players[i] + " has been eliminated");
-
-                    }
-                } */
             }
         }
     }
 
     public override void OnConnectedToMaster()
     {
-        //Debug.Log("Player has connected to the Photon master server");
-        Debug.LogError("Player has connected to the Photon master server");
+        Debug.Log("Player has connected to the Photon master server");
+        //Debug.LogError("Player has connected to the Photon master server");
         connectButton.SetActive(true);
     }
 
     public void OnConnectButtonClicked()
     {
-        //Debug.Log("Attempting to connect to lobby");
-        Debug.LogError("Attempting to connect to lobby");
+        Debug.Log("Attempting to connect to lobby");
+        //Debug.LogError("Attempting to connect to lobby");
         connectButton.SetActive(false);
         cancelButton.SetActive(true);
         PhotonNetwork.JoinRandomRoom();
@@ -83,32 +59,30 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        //Debug.Log("Joining a random lobby failed. No open lobbies available");
-        Debug.LogError("No open lobbies available");
+        Debug.Log("Joining a random lobby failed. No open lobbies available");
+        //Debug.LogError("No open lobbies available");
         CreateRoom();
     }
 
     void CreateRoom()
     {
-        //Debug.Log("Trying to create a lobby");
-        Debug.LogError("Trying to create a lobby");
+        Debug.Log("Trying to create a lobby");
+        //Debug.LogError("Trying to create a lobby");
         int randomRoomName = Random.Range(0, 1000);
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 2 };
+        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 4 };
         PhotonNetwork.CreateRoom("Lobby " + randomRoomName, roomOptions);
-        //Debug.Log("Lobby created");
-        Debug.LogError("Lobby created");
+        Debug.Log("Lobby created");
+        //Debug.LogError("Lobby created");
     }
 
     public override void OnJoinedRoom()
     {
-        //Debug.Log("Player is now in a lobby");
-        Debug.LogError("Player is now in a lobby");
-        //Debug.Log("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
-        Debug.LogError("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
-        //Debug.Log("Player name: " + PhotonNetwork.NickName);
-        Debug.LogError("Player name: " + PhotonNetwork.NickName);
-        //Debug.Log("Player score: " + PhotonNetwork.LocalPlayer.GetScore());
-        //Debug.LogError("Player score: " + PhotonNetwork.LocalPlayer.GetScore());
+        Debug.Log("Player is now in a lobby");
+        //Debug.LogError("Player is now in a lobby");
+        Debug.Log("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        //Debug.LogError("Players in lobby: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        Debug.Log("Player name: " + PhotonNetwork.NickName);
+        //Debug.LogError("Player name: " + PhotonNetwork.NickName);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -120,8 +94,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public void OnCancelButtonClicked()
     {
-        //Debug.Log("Stopping search for lobbies");
-        Debug.LogError("Stopping search for lobbies");
+        Debug.Log("Stopping search for lobbies");
+        //Debug.LogError("Stopping search for lobbies");
         cancelButton.SetActive(false);
         connectButton.SetActive(true);
         PhotonNetwork.LeaveRoom();
@@ -130,7 +104,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public void DisconnectPlayer()
     {
         PhotonNetwork.Disconnect();
-        //Debug.Log("Disconnected");
-        Debug.LogError("Disconnected");
+        Debug.Log("Disconnected");
+        //Debug.LogError("Disconnected");
     }
 }
